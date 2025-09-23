@@ -7,6 +7,8 @@ This script does a few things. First, it adjusts all of the go files in the cbin
 
 After the files are ready to build, two versions of the build command will run. One will create a .so at `build/arm64-v8a/libdefradb.so`, and the other will create an .so at `build/x86_64/libdefradb.so`. Both will be paired with a header file, although the header will be the same in both cases. So the script then copies the header to the base build directory, and removes the others. Additionally, it copies the necessary `defra_structs.h` file from the cbindings directory. After running the script, the user will be left with two header files, and two sub directories, each of which contains the shared object for a given architecture.
 
+*Note: These build commands for Android are not yet a part of the Defra main branch.**
+
 **Building the .aar For Java**
 
 This repo contains a the working directory of a gradle project that can be used to generate an .aar android archive. The higher level overview of what it's doing, is that it contains some C code that exposes functions to Java through JNI. It also contains Java code which will provide the functions and objects that users will use to interact with Defra. The assumption is that a recent version of Gradle is installed, and (again) that the Android NDK is installed with the `ANDROID_NDK` environment variable set. Assuming the requirements are met, this is a several-step process, but not a complicated one:
