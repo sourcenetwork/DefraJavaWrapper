@@ -2,6 +2,7 @@ package source.defra;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONException;
 
 public class DefraTransaction {
 
@@ -89,7 +90,11 @@ public class DefraTransaction {
     }
 
     public DefraResult commit() {
-        return TransactionCommitNative(this.txnPtr);
+        DefraResult result = TransactionCommitNative(this.txnPtr);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public void discard() {
@@ -98,405 +103,781 @@ public class DefraTransaction {
 
     // ACP Methods
     public DefraResult ACPAddDACPolicy(String policy) {
-        return ACPAddDACPolicyNative(this.txnPtr, 0, policy);
+        DefraResult result = ACPAddDACPolicyNative(this.txnPtr, 0, policy);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPAddDACPolicy(String policy, DefraIdentity identity) {
-        return ACPAddDACPolicyNative(this.txnPtr, identity.getPointer(), policy);
+        DefraResult result = ACPAddDACPolicyNative(this.txnPtr, identity.getPointer(), policy);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPAddDACActorRelationship(String collection, String docID, String relation, String actor) {
-        return ACPAddDACActorRelationshipNative(this.txnPtr, 0, collection, docID, relation, actor);
+        DefraResult result = ACPAddDACActorRelationshipNative(this.txnPtr, 0, collection, docID, relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPAddDACActorRelationship(String collection, String docID, String relation, String actor, DefraIdentity identity) {
-        return ACPAddDACActorRelationshipNative(this.txnPtr, identity.getPointer(), collection, docID, relation, actor);
+        DefraResult result = ACPAddDACActorRelationshipNative(this.txnPtr, identity.getPointer(), collection, docID, relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }   
 
     public DefraResult ACPDeleteDACActorRelationship(String collection, String docID, String relation, String actor) {
-        return ACPDeleteDACActorRelationshipNative(this.txnPtr, 0, collection, docID, relation, actor);
+        DefraResult result = ACPDeleteDACActorRelationshipNative(this.txnPtr, 0, collection, docID, relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPDeleteDACActorRelationship(String collection, String docID, String relation, String actor, DefraIdentity identity) {
-        return ACPDeleteDACActorRelationshipNative(this.txnPtr, identity.getPointer(), collection, docID, relation, actor);
+        DefraResult result = ACPDeleteDACActorRelationshipNative(this.txnPtr, identity.getPointer(), collection, docID, relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPDisableNAC() {
-        return ACPDisableNACNative(this.txnPtr, 0);
+        DefraResult result = ACPDisableNACNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPDisableNAC(DefraIdentity identity) {
-        return ACPDisableNACNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ACPDisableNACNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPReEnableNAC() {
-        return ACPReEnableNACNative(this.txnPtr, 0);
+        DefraResult result = ACPReEnableNACNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPReEnableNAC(DefraIdentity identity) {
-        return ACPReEnableNACNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ACPReEnableNACNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPAddNACActorRelationship(String relation, String actor) {
-        return ACPAddNACActorRelationshipNative(this.txnPtr, 0, relation, actor);
+        DefraResult result = ACPAddNACActorRelationshipNative(this.txnPtr, 0, relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPAddNACActorRelationship(String relation, String actor, DefraIdentity identity) {
-        return ACPAddNACActorRelationshipNative(this.txnPtr, identity.getPointer(), relation, actor);
+        DefraResult result = ACPAddNACActorRelationshipNative(this.txnPtr, identity.getPointer(), relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPDeleteNACActorRelationship(String relation, String actor) {
-        return ACPDeleteNACActorRelationshipNative(this.txnPtr, 0, relation, actor);
+        DefraResult result = ACPDeleteNACActorRelationshipNative(this.txnPtr, 0, relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPDeleteNACActorRelationship(String relation, String actor, DefraIdentity identity) {
-        return ACPDeleteNACActorRelationshipNative(this.txnPtr, identity.getPointer(), relation, actor);
+        DefraResult result = ACPDeleteNACActorRelationshipNative(this.txnPtr, identity.getPointer(), relation, actor);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPGetNACStatus() {
-        return ACPGetNACStatusNative(this.txnPtr, 0);
+        DefraResult result = ACPGetNACStatusNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult ACPGetNACStatus(DefraIdentity identity) {
-        return ACPGetNACStatusNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ACPGetNACStatusNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Collection Methods
     public DefraResult addCollection(String sdl) {
-        return AddCollectionNative(this.txnPtr, sdl, 0);
+        DefraResult result = AddCollectionNative(this.txnPtr, sdl, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addCollection(String sdl, DefraIdentity identity) {
-        return AddCollectionNative(this.txnPtr, sdl, identity.getPointer());
+        DefraResult result = AddCollectionNative(this.txnPtr, sdl, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult describeCollection(DefraCollectionOptions options) {
-        return DescribeCollectionNative(this.txnPtr, options, 0);
+        DefraResult result = DescribeCollectionNative(this.txnPtr, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult describeCollection(DefraCollectionOptions options, DefraIdentity identity) {
-        return DescribeCollectionNative(this.txnPtr, options, identity.getPointer());
+        DefraResult result = DescribeCollectionNative(this.txnPtr, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult patchCollection(String patch, String lensConfig) {
-        return PatchCollectionNative(this.txnPtr, patch, lensConfig, 0);
+        DefraResult result = PatchCollectionNative(this.txnPtr, patch, lensConfig, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult patchCollection(String patch, String lensConfig, DefraIdentity identity) {
-        return PatchCollectionNative(this.txnPtr, patch, lensConfig, identity.getPointer());
+        DefraResult result = PatchCollectionNative(this.txnPtr, patch, lensConfig, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult setActiveCollection(DefraCollectionOptions options) {
-        return SetActiveCollectionNative(this.txnPtr, options, 0);
+        DefraResult result = SetActiveCollectionNative(this.txnPtr, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult setActiveCollection(DefraCollectionOptions options, DefraIdentity identity) {
-        return SetActiveCollectionNative(this.txnPtr, options, identity.getPointer());
+        DefraResult result = SetActiveCollectionNative(this.txnPtr, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult truncateCollection(DefraCollectionOptions options) {
-        return TruncateCollectionNative(this.txnPtr, options, 0);
+        DefraResult result = TruncateCollectionNative(this.txnPtr, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult truncateCollection(DefraCollectionOptions options, DefraIdentity identity) {
-        return TruncateCollectionNative(this.txnPtr, options, identity.getPointer());
+        DefraResult result = TruncateCollectionNative(this.txnPtr, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 	
-	public DefraCollection getCollectionByName(String name) throws Exception {
+	public DefraCollection getCollectionByName(String name) {
 		DefraCollectionOptions copts = new DefraCollectionOptions();
 		copts.name = name;
 		DefraResult describeResult = DescribeCollectionNative(this.txnPtr, copts, 0);
 		if (describeResult.status != 0) {
-			throw new Exception("Collection with the name " + name + " was not found.");
+			throw new DefraException(describeResult.error);
 		}
-		JSONArray array = new JSONArray(describeResult.value);
-		JSONObject first = array.getJSONObject(0);
-		String collectionID = first.getString("CollectionID");
-		String versionID = first.getString("VersionID");
+        String collectionID = "";
+        String versionID = "";
+        try {
+            JSONArray array = new JSONArray(describeResult.value);
+            JSONObject first = array.getJSONObject(0);
+            collectionID = first.getString("CollectionID");
+            versionID = first.getString("VersionID");
+        } catch (JSONException e) {
+            throw new DefraException(e.getMessage());
+        }
 		return new DefraCollection(this.txnPtr, name, collectionID, versionID);		
 	}
 	
-	public DefraCollection getCollectionByName(String name, DefraIdentity identity) throws Exception {
+	public DefraCollection getCollectionByName(String name, DefraIdentity identity) {
 		DefraCollectionOptions copts = new DefraCollectionOptions();
 		copts.name = name;
 		DefraResult describeResult = DescribeCollectionNative(this.txnPtr, copts, identity.getPointer());
 		if (describeResult.status != 0) {
-			throw new Exception("Collection with the name " + name + " was not found.");
+			throw new DefraException(describeResult.error);
 		}
-		JSONArray array = new JSONArray(describeResult.value);
-		JSONObject first = array.getJSONObject(0);
-		String collectionID = first.getString("CollectionID");
-		String versionID = first.getString("VersionID");
+        String collectionID = "";
+        String versionID = "";
+        try {
+            JSONArray array = new JSONArray(describeResult.value);
+            JSONObject first = array.getJSONObject(0);
+            collectionID = first.getString("CollectionID");
+            versionID = first.getString("VersionID");
+        } catch (JSONException e) {
+            throw new DefraException(e.getMessage());
+        }
 		return new DefraCollection(this.txnPtr, name, collectionID, versionID);		
 	}
 
     // Document Methods
     public DefraResult addDocument(String json, boolean isEncrypted, String encryptedFields, DefraCollectionOptions options) {
-        return AddDocumentNative(this.txnPtr, json, isEncrypted ? 1 : 0, encryptedFields, options, 0);
+        DefraResult result = AddDocumentNative(this.txnPtr, json, isEncrypted ? 1 : 0, encryptedFields, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addDocument(String json, boolean isEncrypted, String encryptedFields, DefraCollectionOptions options, DefraIdentity identity) {
-        return AddDocumentNative(this.txnPtr, json, isEncrypted ? 1 : 0, encryptedFields, options, identity.getPointer());
+        DefraResult result = AddDocumentNative(this.txnPtr, json, isEncrypted ? 1 : 0, encryptedFields, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteDocument(String docID, String filter, DefraCollectionOptions options) {
-        return DeleteDocumentNative(this.txnPtr, docID, filter, options, 0);
+        DefraResult result = DeleteDocumentNative(this.txnPtr, docID, filter, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteDocument(String docID, String filter, DefraCollectionOptions options, DefraIdentity identity) {
-        return DeleteDocumentNative(this.txnPtr, docID, filter, options, identity.getPointer());
+        DefraResult result = DeleteDocumentNative(this.txnPtr, docID, filter, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult getDocument(String docID, boolean showDeleted, DefraCollectionOptions options) {
-        return GetDocumentNative(this.txnPtr, docID, showDeleted, options, 0);
+        DefraResult result = GetDocumentNative(this.txnPtr, docID, showDeleted, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult getDocument(String docID, boolean showDeleted, DefraCollectionOptions options, DefraIdentity identity) {
-        return GetDocumentNative(this.txnPtr, docID, showDeleted, options, identity.getPointer());
+        DefraResult result = GetDocumentNative(this.txnPtr, docID, showDeleted, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult updateDocument(String docID, String filter, String updater, DefraCollectionOptions options) {
-        return UpdateDocumentNative(this.txnPtr, docID, filter, updater, options, 0);
+        DefraResult result = UpdateDocumentNative(this.txnPtr, docID, filter, updater, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult updateDocument(String docID, String filter, String updater, DefraCollectionOptions options, DefraIdentity identity) {
-        return UpdateDocumentNative(this.txnPtr, docID, filter, updater, options, identity.getPointer());
+        DefraResult result = UpdateDocumentNative(this.txnPtr, docID, filter, updater, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Encrypted Index Methods
     public DefraResult newEncryptedIndex(String collectionName, String fieldName) {
-        return NewEncryptedIndexNative(this.txnPtr, collectionName, fieldName, 0);
+        DefraResult result = NewEncryptedIndexNative(this.txnPtr, collectionName, fieldName, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult newEncryptedIndex(String collectionName, String fieldName, DefraIdentity identity) {
-        return NewEncryptedIndexNative(this.txnPtr, collectionName, fieldName, identity.getPointer());
+        DefraResult result = NewEncryptedIndexNative(this.txnPtr, collectionName, fieldName, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listEncryptedIndexes(String collectionName) {
-        return ListEncryptedIndexesNative(this.txnPtr, collectionName, 0);
+        DefraResult result = ListEncryptedIndexesNative(this.txnPtr, collectionName, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listEncryptedIndexes(String collectionName, DefraIdentity identity) {
-        return ListEncryptedIndexesNative(this.txnPtr, collectionName, identity.getPointer());
+        DefraResult result = ListEncryptedIndexesNative(this.txnPtr, collectionName, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteEncryptedIndex(String collectionName, String fieldName) {
-        return DeleteEncryptedIndexNative(this.txnPtr, collectionName, fieldName, 0);
+        DefraResult result = DeleteEncryptedIndexNative(this.txnPtr, collectionName, fieldName, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteEncryptedIndex(String collectionName, String fieldName, DefraIdentity identity) {
-        return DeleteEncryptedIndexNative(this.txnPtr, collectionName, fieldName, identity.getPointer());
+        DefraResult result = DeleteEncryptedIndexNative(this.txnPtr, collectionName, fieldName, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Index Methods
     public DefraResult newIndex(String indexName, String fields, boolean isUnique, DefraCollectionOptions options) {
-        return NewIndexNative(this.txnPtr, indexName, fields, isUnique, options, 0);
+        DefraResult result = NewIndexNative(this.txnPtr, indexName, fields, isUnique, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult newIndex(String indexName, String fields, boolean isUnique, DefraCollectionOptions options, DefraIdentity identity) {
-        return NewIndexNative(this.txnPtr, indexName, fields, isUnique, options, identity.getPointer());
+        DefraResult result = NewIndexNative(this.txnPtr, indexName, fields, isUnique, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listIndexes(DefraCollectionOptions options) {
-        return ListIndexesNative(this.txnPtr, options, 0);
+        DefraResult result = ListIndexesNative(this.txnPtr, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listIndexes(DefraCollectionOptions options, DefraIdentity identity) {
-        return ListIndexesNative(this.txnPtr, options, identity.getPointer());
+        DefraResult result = ListIndexesNative(this.txnPtr, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteIndex(String indexName, DefraCollectionOptions options) {
-        return DeleteIndexNative(this.txnPtr, indexName, options, 0);
+        DefraResult result = DeleteIndexNative(this.txnPtr, indexName, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteIndex(String indexName, DefraCollectionOptions options, DefraIdentity identity) {
-        return DeleteIndexNative(this.txnPtr, indexName, options, identity.getPointer());
+        DefraResult result = DeleteIndexNative(this.txnPtr, indexName, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Identity Methods
     public DefraResult getNodeIdentity() {
-        return GetNodeIdentityNative(this.txnPtr);
+        DefraResult result = GetNodeIdentityNative(this.txnPtr);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Lens Methods
     public DefraResult setLens(String src, String dst, String cfg) {
-        return SetLensNative(this.txnPtr, 0, src, dst, cfg);
+        DefraResult result = SetLensNative(this.txnPtr, 0, src, dst, cfg);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult setLens(String src, String dst, String cfg, DefraIdentity identity) {
-        return SetLensNative(this.txnPtr, identity.getPointer(), src, dst, cfg);
+        DefraResult result = SetLensNative(this.txnPtr, identity.getPointer(), src, dst, cfg);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addLens(String cfg) {
-        return AddLensNative(this.txnPtr, 0, cfg);
+        DefraResult result = AddLensNative(this.txnPtr, 0, cfg);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addLens(String cfg, DefraIdentity identity) {
-        return AddLensNative(this.txnPtr, identity.getPointer(), cfg);
+        DefraResult result = AddLensNative(this.txnPtr, identity.getPointer(), cfg);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listLenses() {
-        return ListLensesNative(this.txnPtr, 0);
+        DefraResult result = ListLensesNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listLenses(DefraIdentity identity) {
-        return ListLensesNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ListLensesNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // P2P Methods
     public DefraResult getP2PInfo() {
-        return GetP2PInfoNative(this.txnPtr, 0);
+        DefraResult result = GetP2PInfoNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult getP2PInfo(DefraIdentity identity) {
-        return GetP2PInfoNative(this.txnPtr, identity.getPointer());
+        DefraResult result = GetP2PInfoNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PActivePeers() {
-        return ListP2PActivePeersNative(this.txnPtr, 0);
+        DefraResult result = ListP2PActivePeersNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PActivePeers(DefraIdentity identity) {
-        return ListP2PActivePeersNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ListP2PActivePeersNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PReplicators() {
-        return ListP2PReplicatorsNative(this.txnPtr, 0);
+        DefraResult result = ListP2PReplicatorsNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PReplicators(DefraIdentity identity) {
-        return ListP2PReplicatorsNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ListP2PReplicatorsNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addP2PReplicator(String collections, String addresses) {
-        return AddP2PReplicatorNative(this.txnPtr, collections, addresses, 0);
+        DefraResult result = AddP2PReplicatorNative(this.txnPtr, collections, addresses, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addP2PReplicator(String collections, String addresses, DefraIdentity identity) {
-        return AddP2PReplicatorNative(this.txnPtr, collections, addresses, identity.getPointer());
+        DefraResult result = AddP2PReplicatorNative(this.txnPtr, collections, addresses, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteP2PReplicator(String collections, String id) {
-        return DeleteP2PReplicatorNative(this.txnPtr, collections, id, 0);
+        DefraResult result = DeleteP2PReplicatorNative(this.txnPtr, collections, id, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteP2PReplicator(String collections, String id, DefraIdentity identity) {
-        return DeleteP2PReplicatorNative(this.txnPtr, collections, id, identity.getPointer());
+        DefraResult result = DeleteP2PReplicatorNative(this.txnPtr, collections, id, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addP2PCollection(String collections) {
-        return AddP2PCollectionNative(this.txnPtr, collections, 0);
+        DefraResult result = AddP2PCollectionNative(this.txnPtr, collections, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addP2PCollection(String collections, DefraIdentity identity) {
-        return AddP2PCollectionNative(this.txnPtr, collections, identity.getPointer());
+        DefraResult result = AddP2PCollectionNative(this.txnPtr, collections, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteP2PCollection(String collections) {
-        return DeleteP2PCollectionNative(this.txnPtr, collections, 0);
+        DefraResult result = DeleteP2PCollectionNative(this.txnPtr, collections, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteP2PCollection(String collections, DefraIdentity identity) {
-        return DeleteP2PCollectionNative(this.txnPtr, collections, identity.getPointer());
+        DefraResult result = DeleteP2PCollectionNative(this.txnPtr, collections, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PCollections() {
-        return ListP2PCollectionsNative(this.txnPtr, 0);
+        DefraResult result = ListP2PCollectionsNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PCollections(DefraIdentity identity) {
-        return ListP2PCollectionsNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ListP2PCollectionsNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addP2PDocument(String collections) {
-        return AddP2PDocumentNative(this.txnPtr, collections, 0);
+        DefraResult result = AddP2PDocumentNative(this.txnPtr, collections, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addP2PDocument(String collections, DefraIdentity identity) {
-        return AddP2PDocumentNative(this.txnPtr, collections, identity.getPointer());
+        DefraResult result = AddP2PDocumentNative(this.txnPtr, collections, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteP2PDocument(String collections) {
-        return DeleteP2PDocumentNative(this.txnPtr, collections, 0);
+        DefraResult result = DeleteP2PDocumentNative(this.txnPtr, collections, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteP2PDocument(String collections, DefraIdentity identity) {
-        return DeleteP2PDocumentNative(this.txnPtr, collections, identity.getPointer());
+        DefraResult result = DeleteP2PDocumentNative(this.txnPtr, collections, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PDocuments() {
-        return ListP2PDocumentsNative(this.txnPtr, 0);
+        DefraResult result = ListP2PDocumentsNative(this.txnPtr, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listP2PDocuments(DefraIdentity identity) {
-        return ListP2PDocumentsNative(this.txnPtr, identity.getPointer());
+        DefraResult result = ListP2PDocumentsNative(this.txnPtr, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult syncP2PDocuments(String collection, String docIDs, String timeout) {
-        return SyncP2PDocumentsNative(this.txnPtr, collection, docIDs, timeout, 0);
+        DefraResult result = SyncP2PDocumentsNative(this.txnPtr, collection, docIDs, timeout, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult syncP2PDocuments(String collection, String docIDs, String timeout, DefraIdentity identity) {
-        return SyncP2PDocumentsNative(this.txnPtr, collection, docIDs, timeout, identity.getPointer());
+        DefraResult result = SyncP2PDocumentsNative(this.txnPtr, collection, docIDs, timeout, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult syncP2PCollectionVersions(String versionIDs, String timeout) {
-        return SyncP2PCollectionVersionsNative(this.txnPtr, versionIDs, timeout, 0);
+        DefraResult result = SyncP2PCollectionVersionsNative(this.txnPtr, versionIDs, timeout, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult syncP2PCollectionVersions(String versionIDs, String timeout, DefraIdentity identity) {
-        return SyncP2PCollectionVersionsNative(this.txnPtr, versionIDs, timeout, identity.getPointer());
+        DefraResult result = SyncP2PCollectionVersionsNative(this.txnPtr, versionIDs, timeout, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult syncP2PBranchableCollection(String collectionID, String timeout) {
-        return SyncP2PBranchableCollectionNative(this.txnPtr, collectionID, timeout, 0);
+        DefraResult result = SyncP2PBranchableCollectionNative(this.txnPtr, collectionID, timeout, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult syncP2PBranchableCollection(String collectionID, String timeout, DefraIdentity identity) {
-        return SyncP2PBranchableCollectionNative(this.txnPtr, collectionID, timeout, identity.getPointer());
+        DefraResult result = SyncP2PBranchableCollectionNative(this.txnPtr, collectionID, timeout, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult connectP2PPeers(String peerAddresses) {
-        return ConnectP2PPeersNative(this.txnPtr, peerAddresses, 0);
+        DefraResult result = ConnectP2PPeersNative(this.txnPtr, peerAddresses, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult connectP2PPeers(String peerAddresses, DefraIdentity identity) {
-        return ConnectP2PPeersNative(this.txnPtr, peerAddresses, identity.getPointer());
+        DefraResult result = ConnectP2PPeersNative(this.txnPtr, peerAddresses, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Query Methods
     public DefraResult executeQuery(String query, String operationName, String variables) {
-        return ExecuteQueryNative(this.txnPtr, query, 0, operationName, variables);
+        DefraResult result = ExecuteQueryNative(this.txnPtr, query, 0, operationName, variables);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult executeQuery(String query, String operationName, String variables, DefraIdentity identity) {
-        return ExecuteQueryNative(this.txnPtr, query, identity.getPointer(), operationName, variables);
+        DefraResult result = ExecuteQueryNative(this.txnPtr, query, identity.getPointer(), operationName, variables);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // View Methods
     public DefraResult addView(String query, String sdl, String transformCID) {
-        return AddViewNative(this.txnPtr, query, sdl, transformCID, 0);
+        DefraResult result = AddViewNative(this.txnPtr, query, sdl, transformCID, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addView(String query, String sdl, String transformCID, DefraIdentity identity) {
-        return AddViewNative(this.txnPtr, query, sdl, transformCID, identity.getPointer());
+        DefraResult result = AddViewNative(this.txnPtr, query, sdl, transformCID, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult refreshView(DefraCollectionOptions options) {
-        return RefreshViewNative(this.txnPtr, options, 0);
+        DefraResult result = RefreshViewNative(this.txnPtr, options, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult refreshView(DefraCollectionOptions options, DefraIdentity identity) {
-        return RefreshViewNative(this.txnPtr, options, identity.getPointer());
+        DefraResult result = RefreshViewNative(this.txnPtr, options, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Block Verification
     public DefraResult verifyBlockSignature(String keyType, String publicKey, String cid) {
-        return VerifyBlockSignatureNative(this.txnPtr, keyType, publicKey, cid, 0);
+        DefraResult result = VerifyBlockSignatureNative(this.txnPtr, keyType, publicKey, cid, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult verifyBlockSignature(String keyType, String publicKey, String cid, DefraIdentity identity) {
-        return VerifyBlockSignatureNative(this.txnPtr, keyType, publicKey, cid, identity.getPointer());
+        DefraResult result = VerifyBlockSignatureNative(this.txnPtr, keyType, publicKey, cid, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public long getPointer() {

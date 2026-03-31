@@ -57,86 +57,165 @@ public class DefraCollection {
 	
     // Document Methods
     public DefraResult addDocument(String json, boolean isEncrypted, String encryptedFields) {
-		
-        return AddDocumentNative(this.storePtr, json, isEncrypted ? 1 : 0, encryptedFields, collectionOptionsFromThis(), 0);
+        DefraResult result = AddDocumentNative(this.storePtr, json, isEncrypted ? 1 : 0, encryptedFields, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult addDocument(String json, boolean isEncrypted, String encryptedFields, DefraIdentity identity) {
-        return AddDocumentNative(this.storePtr, json, isEncrypted ? 1 : 0, encryptedFields, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = AddDocumentNative(this.storePtr, json, isEncrypted ? 1 : 0, encryptedFields, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 	
 	public DefraResult deleteDocument(String docID, String filter) {
-        return DeleteDocumentNative(this.storePtr, docID, filter, collectionOptionsFromThis(), 0);
+        DefraResult result = DeleteDocumentNative(this.storePtr, docID, filter, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteDocument(String docID, String filter, DefraCollectionOptions options, DefraIdentity identity) {
-        return DeleteDocumentNative(this.storePtr, docID, filter, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = DeleteDocumentNative(this.storePtr, docID, filter, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult getDocument(String docID, boolean showDeleted) {
-        return GetDocumentNative(this.storePtr, docID, showDeleted, collectionOptionsFromThis(), 0);
+        DefraResult result = GetDocumentNative(this.storePtr, docID, showDeleted, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult getDocument(String docID, boolean showDeleted, DefraIdentity identity) {
-        return GetDocumentNative(this.storePtr, docID, showDeleted, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = GetDocumentNative(this.storePtr, docID, showDeleted, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult updateDocument(String docID, String filter, String updater) {
-        return UpdateDocumentNative(this.storePtr, docID, filter, updater, collectionOptionsFromThis(), 0);
+        DefraResult result = UpdateDocumentNative(this.storePtr, docID, filter, updater, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult updateDocument(String docID, String filter, String updater, DefraIdentity identity) {
-        return UpdateDocumentNative(this.storePtr, docID, filter, updater, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = UpdateDocumentNative(this.storePtr, docID, filter, updater, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Encrypted Index Methods
     public DefraResult newEncryptedIndex(String collectionName, String fieldName) {
-        return NewEncryptedIndexNative(this.storePtr, collectionName, fieldName, 0);
+        DefraResult result = NewEncryptedIndexNative(this.storePtr, collectionName, fieldName, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult newEncryptedIndex(String collectionName, String fieldName, DefraIdentity identity) {
-        return NewEncryptedIndexNative(this.storePtr, collectionName, fieldName, identity.getPointer());
+        DefraResult result = NewEncryptedIndexNative(this.storePtr, collectionName, fieldName, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listEncryptedIndexes(String collectionName) {
-        return ListEncryptedIndexesNative(this.storePtr, collectionName, 0);
+        DefraResult result = ListEncryptedIndexesNative(this.storePtr, collectionName, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listEncryptedIndexes(String collectionName, DefraIdentity identity) {
-        return ListEncryptedIndexesNative(this.storePtr, collectionName, identity.getPointer());
+        DefraResult result = ListEncryptedIndexesNative(this.storePtr, collectionName, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteEncryptedIndex(String collectionName, String fieldName) {
-        return DeleteEncryptedIndexNative(this.storePtr, collectionName, fieldName, 0);
+        DefraResult result = DeleteEncryptedIndexNative(this.storePtr, collectionName, fieldName, 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteEncryptedIndex(String collectionName, String fieldName, DefraIdentity identity) {
-        return DeleteEncryptedIndexNative(this.storePtr, collectionName, fieldName, identity.getPointer());
+        DefraResult result = DeleteEncryptedIndexNative(this.storePtr, collectionName, fieldName, identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     // Index Methods
     public DefraResult newIndex(String indexName, String fields, boolean isUnique) {
-        return NewIndexNative(this.storePtr, indexName, fields, isUnique, collectionOptionsFromThis(), 0);
+        DefraResult result = NewIndexNative(this.storePtr, indexName, fields, isUnique, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult newIndex(String indexName, String fields, boolean isUnique, DefraIdentity identity) {
-        return NewIndexNative(this.storePtr, indexName, fields, isUnique, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = NewIndexNative(this.storePtr, indexName, fields, isUnique, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listIndexes() {
-        return ListIndexesNative(this.storePtr, collectionOptionsFromThis(), 0);
+        DefraResult result = ListIndexesNative(this.storePtr, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult listIndexes(DefraIdentity identity) {
-        return ListIndexesNative(this.storePtr, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = ListIndexesNative(this.storePtr, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteIndex(String indexName) {
-        return DeleteIndexNative(this.storePtr, indexName, collectionOptionsFromThis(), 0);
+        DefraResult result = DeleteIndexNative(this.storePtr, indexName, collectionOptionsFromThis(), 0);
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 
     public DefraResult deleteIndex(String indexName, DefraIdentity identity) {
-        return DeleteIndexNative(this.storePtr, indexName, collectionOptionsFromThis(), identity.getPointer());
+        DefraResult result = DeleteIndexNative(this.storePtr, indexName, collectionOptionsFromThis(), identity.getPointer());
+        if (result.status != 0) {
+            throw new DefraException(result.error);
+        }
+        return result;
     }
 	
 	
