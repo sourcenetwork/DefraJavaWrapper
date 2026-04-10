@@ -43,6 +43,7 @@ jobject returnDefraTransactionResult(JNIEnv* env, NewTxnResult res) {
 // Helper to convert a Java DefraNodeInitOptions object to a C NodeInitOptions struct
 NodeInitOptions convertJavaNodeInitOptions(JNIEnv* env, jobject optionsObj) {
     NodeInitOptions opts;
+    memset(&opts, 0, sizeof(NodeInitOptions));
     jclass cls = (*env)->GetObjectClass(env, optionsObj);
 
     // Strings
@@ -76,12 +77,22 @@ NodeInitOptions convertJavaNodeInitOptions(JNIEnv* env, jobject optionsObj) {
     jfieldID fid_maxTransactionRetries = (*env)->GetFieldID(env, cls, "maxTransactionRetries", "I");
     opts.maxTransactionRetries = (*env)->GetIntField(env, optionsObj, fid_maxTransactionRetries);
 
+    // Identity
+    jfieldID fid_identity = (*env)->GetFieldID(env, cls, "identity", "Lsource/defra/DefraIdentity;");
+    jobject identityObj = (*env)->GetObjectField(env, optionsObj, fid_identity);
+    if (identityObj != NULL) {
+        jclass identityCls = (*env)->GetObjectClass(env, identityObj);
+        jfieldID fid_ptr = (*env)->GetFieldID(env, identityCls, "ptr", "J");
+        opts.identityPtr = (uintptr_t)(*env)->GetLongField(env, identityObj, fid_ptr);
+    }
+
     return opts;
 }
 
 // Helper to convert a Java DefraCollectionOptions object to a C CollectionOptions struct
 CollectionOptions convertJavaCollectionOptions(JNIEnv* env, jobject optionsObj) {
     CollectionOptions opts;
+	memset(&opts, 0, sizeof(CollectionOptions));
     jclass cls = (*env)->GetObjectClass(env, optionsObj);
 
     // Strings

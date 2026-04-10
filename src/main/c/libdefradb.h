@@ -35,7 +35,7 @@ extern const char *_GoStringPtr(_GoString_ s);
 
 #line 1 "cgo-generated-wrapper"
 
-#line 3 "ble.go"
+#line 15 "ble.go"
 
 #include <stdlib.h>
 #include <jni.h>

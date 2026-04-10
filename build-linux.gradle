@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+}
+
+archivesBaseName = 'defradb'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+            exclude '**/DefraBLE.java'
+        }
+        resources {
+            srcDirs = ['src/main/linuxLibs']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.json:json:20240303'
+}

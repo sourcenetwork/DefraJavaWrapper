@@ -1,6 +1,6 @@
 package source.defra;
 
-public class DefraException extends RuntimeException {
+public class DefraException extends Exception {
     public DefraException(String message) {
         super(message);
     }

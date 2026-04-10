@@ -17,6 +17,8 @@ allprojects {
 
 apply plugin: 'com.android.library'
 
+archivesBaseName = 'defradb'
+
 android {
     namespace 'source.defra'
     compileSdk 34
@@ -35,4 +37,6 @@ android {
             jniLibs.srcDirs = ['src/main/jniLibs']
         }
     }
+
+
 }

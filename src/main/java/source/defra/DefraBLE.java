@@ -3,8 +3,8 @@ package source.defra;
 public class DefraBLE {
 
     static {
-		System.loadLibrary("nativewrapper");
-        System.loadLibrary("defradb");
+        NativeLoader.load("nativewrapper");
+        NativeLoader.load("defradb");
     }
 
     // Called by Java BLE driver when a peer is discovered via BLE.

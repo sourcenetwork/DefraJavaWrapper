@@ -4,7 +4,7 @@ set -euo pipefail
 NDK=$ANDROID_NDK
 JNI=../jniLibs
 
-# ARM64-v8a
+# ARM64-v8a (Android)
 mkdir -p $JNI/arm64-v8a
 $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang \
     -fPIC \
@@ -13,7 +13,7 @@ $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang \
     -shared -o $JNI/arm64-v8a/libnativewrapper.so \
     nativewrapper.c
 
-# x86_64
+# x86_64 (Android)
 mkdir -p $JNI/x86_64
 $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android21-clang \
     -fPIC \
@@ -21,3 +21,16 @@ $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android21-clang \
     -L$JNI/x86_64 -ldefradb \
     -shared -o $JNI/x86_64/libnativewrapper.so \
     nativewrapper.c
+
+# Linux amd64
+LINUX_OUT=../linuxLibs
+mkdir -p $LINUX_OUT
+gcc \
+    -fPIC \
+    -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux \
+    -Wl,-rpath,'$ORIGIN' \
+    -shared \
+    -o $LINUX_OUT/libnativewrapper.so \
+    nativewrapper.c \
+    -L$LINUX_OUT \
+    -ldefradb
