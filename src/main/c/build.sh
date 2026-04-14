@@ -3,13 +3,11 @@ set -euo pipefail
 
 android_present=false
 linux_present=false
-ble_enabled=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --android) android_present=true; shift ;;
         --linux) linux_present=true; shift ;;
-        --ble-enabled) ble_enabled=true; shift ;;
         *) echo "Unknown argument: $1"; exit 1 ;;
     esac
 done
@@ -17,15 +15,10 @@ done
 NDK=$ANDROID_NDK
 JNI=../jniLibs
 
-BLE_FLAG=""
-if [ "$ble_enabled" = true ]; then
-    BLE_FLAG="-DBLE_ENABLED"
-fi
-
 if [ "$android_present" = true ]; then
     mkdir -p $JNI/arm64-v8a
     $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang \
-        -fPIC $BLE_FLAG \
+        -fPIC \
         -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux \
         -L$JNI/arm64-v8a -ldefradb \
         -shared -o $JNI/arm64-v8a/libnativewrapper.so \
@@ -33,7 +26,7 @@ if [ "$android_present" = true ]; then
 
     mkdir -p $JNI/x86_64
     $NDK/toolchains/llvm/prebuilt/linux-x86_64/bin/x86_64-linux-android21-clang \
-        -fPIC $BLE_FLAG \
+        -fPIC \
         -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux \
         -L$JNI/x86_64 -ldefradb \
         -shared -o $JNI/x86_64/libnativewrapper.so \
@@ -44,7 +37,7 @@ if [ "$linux_present" = true ]; then
     LINUX_OUT=../linuxLibs
     mkdir -p $LINUX_OUT
     gcc \
-        -fPIC $BLE_FLAG \
+        -fPIC \
         -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux \
         -Wl,-rpath,'$ORIGIN' \
         -shared \

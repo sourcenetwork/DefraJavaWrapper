@@ -1512,39 +1512,3 @@ JNIEXPORT jobject JNICALL Java_source_defra_DefraCollection_DeleteIndexNative(
     releaseJavaCollectionOptions(env, optionsObj, opts);
     return returnDefraResult(env, res);
 }
-
-#ifdef BLE_ENABLED
-JNIEXPORT jboolean JNICALL
-Java_source_defra_DefraBLE_handleFoundPeer(JNIEnv *env, jclass clazz, jstring remotePID) {
-    const char *pid = (*env)->GetStringUTFChars(env, remotePID, NULL);
-    int result = BLEHandleFoundPeer((char*)pid);
-    (*env)->ReleaseStringUTFChars(env, remotePID, pid);
-    return result ? JNI_TRUE : JNI_FALSE;
-}
-
-JNIEXPORT void JNICALL
-Java_source_defra_DefraBLE_handleLostPeer(JNIEnv *env, jclass clazz, jstring remotePID) {
-    const char *pid = (*env)->GetStringUTFChars(env, remotePID, NULL);
-    BLEHandleLostPeer((char*)pid);
-    (*env)->ReleaseStringUTFChars(env, remotePID, pid);
-}
-
-JNIEXPORT void JNICALL
-Java_source_defra_DefraBLE_receiveFromPeer(JNIEnv *env, jclass clazz, jstring remotePID, jbyteArray payload) {
-    const char *pid = (*env)->GetStringUTFChars(env, remotePID, NULL);
-    jsize len = (*env)->GetArrayLength(env, payload);
-    jbyte *bytes = (*env)->GetByteArrayElements(env, payload, NULL);
-    BLEReceiveFromPeer((char*)pid, (void*)bytes, (int)len);
-    (*env)->ReleaseByteArrayElements(env, payload, bytes, JNI_ABORT);
-    (*env)->ReleaseStringUTFChars(env, remotePID, pid);
-}
-
-JavaVM* gJVM = NULL;
-jobject gBleInterface = NULL;
-
-JNIEXPORT void JNICALL
-Java_source_defra_DefraBLE_registerBleInterface(JNIEnv *env, jclass clazz, jobject bleInterface) {
-    (*env)->GetJavaVM(env, &gJVM);
-    gBleInterface = (*env)->NewGlobalRef(env, bleInterface);
-}
-#endif

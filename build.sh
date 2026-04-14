@@ -19,10 +19,6 @@ while [[ $# -gt 0 ]]; do
             linux_present=true
             shift
             ;;
-        --ble-enabled)
-            ble_enabled=true
-            shift
-            ;;
         --cleanup)
             cleanup=true
             shift
@@ -44,7 +40,7 @@ done
 
 if [ -z "$defra_dir" ]; then
     echo "Error: --defra-dir is required"
-    echo "Usage: ./build.sh [ --android ] [ --linux ] [ --ble-enabled ] [ --cleanup ] --defra-dir <path>"
+    echo "Usage: ./build.sh [ --android ] [ --linux ] [ --cleanup ] --defra-dir <path>"
     exit 1
 fi
 
@@ -89,7 +85,7 @@ if [ "$android_present" = true ]; then
         chmod +x "$script_dir/src/main/c/build.sh"
         BLE_FLAG=""
         [ "$ble_enabled" = true ] && BLE_FLAG="--ble-enabled"
-        (cd "$script_dir/src/main/c" && ./build.sh --android $BLE_FLAG)
+        (cd "$script_dir/src/main/c" && ./build.sh --android)
         echo "Android C build completed"
     else
         echo "Warning: src/main/c/build.sh not found"
