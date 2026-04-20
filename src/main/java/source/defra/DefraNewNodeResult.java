@@ -1,6 +1,6 @@
 package source.defra;
 
-public class DefraNewNodeResult {
+class DefraNewNodeResult {
 
 	public long nodePtr;
     public String error;

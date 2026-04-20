@@ -57,6 +57,10 @@ mkdir -p "$script_dir/src/main/c"
 if [ "$android_present" = true ]; then
     echo "Running Android build..."
     (cd "$defra_dir_abs" && make build-c-shared-android)
+    if [ $? -ne 0 ]; then
+        echo "make build-c-shared-android FAILED"
+        exit 1
+    fi
 
     if [ -f "$defra_dir_abs/build/arm64-v8a/libdefradb.so" ]; then
         echo "Android arm64-v8a build successful"
@@ -107,6 +111,10 @@ fi
 if [ "$linux_present" = true ]; then
     echo "Running Linux build..."
     (cd "$defra_dir_abs" && make build-c-shared-linux)
+    if [ $? -ne 0 ]; then
+        echo "make build-c-shared-linux FAILED"
+        exit 1
+    fi
 
     if [ -f "$defra_dir_abs/build/libdefradb.so" ]; then
         echo "Linux build successful"

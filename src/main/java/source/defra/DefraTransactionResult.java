@@ -1,6 +1,6 @@
 package source.defra;
 
-public class DefraTransactionResult {
+class DefraTransactionResult {
 
 	public long txnPtr;
     public String error;

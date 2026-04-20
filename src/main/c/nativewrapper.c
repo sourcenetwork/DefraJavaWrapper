@@ -10,6 +10,8 @@ void releaseJavaCollectionOptions(JNIEnv* env, jobject optionsObj, CollectionOpt
 jobject returnDefraResult(JNIEnv* env, Result res) {
     jstring errorStr = res.error ? (*env)->NewStringUTF(env, res.error) : NULL;
     jstring valueStr = res.value ? (*env)->NewStringUTF(env, res.value) : NULL;
+    if (res.error) free(res.error);
+    if (res.value) free(res.value);
     jclass cls = (*env)->FindClass(env, "source/defra/DefraResult");
     jmethodID ctor = (*env)->GetMethodID(env, cls, "<init>", "(ILjava/lang/String;Ljava/lang/String;)V");
     jobject resultObj = (*env)->NewObject(env, cls, ctor, (jint)res.status, errorStr, valueStr);
@@ -18,6 +20,7 @@ jobject returnDefraResult(JNIEnv* env, Result res) {
 
 jobject returnDefraNewNodeResult(JNIEnv* env, NewNodeResult res) {
     jstring errorStr = res.error ? (*env)->NewStringUTF(env, res.error) : NULL;
+    if (res.error) free(res.error);
     jclass cls = (*env)->FindClass(env, "source/defra/DefraNewNodeResult");
     jmethodID ctor = (*env)->GetMethodID(env, cls, "<init>", "(ILjava/lang/String;J)V");
     jobject resultObj = (*env)->NewObject(env, cls, ctor, (jint)res.status, errorStr, (jlong)res.nodePtr);
@@ -26,6 +29,7 @@ jobject returnDefraNewNodeResult(JNIEnv* env, NewNodeResult res) {
 
 jobject returnDefraIdentityResult(JNIEnv* env, NewIdentityResult res) {
     jstring errorStr = res.error ? (*env)->NewStringUTF(env, res.error) : NULL;
+    if (res.error) free(res.error);
     jclass cls = (*env)->FindClass(env, "source/defra/DefraIdentityResult");
     jmethodID ctor = (*env)->GetMethodID(env, cls, "<init>", "(ILjava/lang/String;J)V");
     jobject resultObj = (*env)->NewObject(env, cls, ctor, (jint)res.status, errorStr, (jlong)res.identityPtr);
@@ -34,6 +38,7 @@ jobject returnDefraIdentityResult(JNIEnv* env, NewIdentityResult res) {
 
 jobject returnDefraTransactionResult(JNIEnv* env, NewTxnResult res) {
     jstring errorStr = res.error ? (*env)->NewStringUTF(env, res.error) : NULL;
+    if (res.error) free(res.error);
     jclass cls = (*env)->FindClass(env, "source/defra/DefraTransactionResult");
     jmethodID ctor = (*env)->GetMethodID(env, cls, "<init>", "(ILjava/lang/String;J)V");
     jobject resultObj = (*env)->NewObject(env, cls, ctor, (jint)res.status, errorStr, (jlong)res.txnPtr);

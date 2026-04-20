@@ -1,6 +1,6 @@
 package source.defra;
 
-public class DefraIdentityResult {
+class DefraIdentityResult {
 
 	public long identityPtr;
     public String error;

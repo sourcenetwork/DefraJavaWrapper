@@ -1,6 +1,6 @@
 package source.defra;
 
-public class DefraResult {
+class DefraResult {
 
 	public String value;
     public String error;
