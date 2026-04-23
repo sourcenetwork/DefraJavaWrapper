@@ -1,6 +1,21 @@
-plugins {
-    id 'com.android.application' version '8.1.0'
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'
+    }
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.application'
 
 android {
     namespace 'source.defra.test'
@@ -18,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: '../build/outputs/aar', include: ['*-debug.aar'])
+    implementation files('libs/defradb.aar')
     androidTestImplementation 'androidx.test:runner:1.6.1'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
 }
