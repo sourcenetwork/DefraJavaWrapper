@@ -82,4 +82,3 @@ jobs:
         run: ./build.sh --defra-dir /tmp/defradb --android
         env:
           ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
-          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
