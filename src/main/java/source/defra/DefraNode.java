@@ -993,7 +993,10 @@ public class DefraNode {
 	public void unsubscribe(String id) throws DefraException {
 		ActiveSubscription sub = subscriptions.remove(id);
 		if (sub != null) {
-			closeSubscription(sub.handle);
+            DefraResult result = CloseSubscriptionNative(id);
+            if (result.status != 0) {
+                throw new DefraException(result.error);
+            }
 		}
 	}
 	
