@@ -889,22 +889,6 @@ public class DefraNode {
         return result.value;
     }
 
-    public String pollSubscription(String id) throws DefraException {
-        DefraResult result = PollSubscriptionNative(id);
-        if (result.status != 0) {
-            throw new DefraException(result.error);
-        }
-        return result.value;
-    }
-
-    public String closeSubscription(String id) throws DefraException {
-        DefraResult result = CloseSubscriptionNative(id);
-        if (result.status != 0) {
-            throw new DefraException(result.error);
-        }
-        return result.value;
-    }
-
     // Version Method
     public String getVersion(boolean flagFull, boolean flagJSON) throws DefraException {
         DefraResult result = GetVersionNative(flagFull, flagJSON);
